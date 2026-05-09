@@ -3,49 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Anniversary</title>
-    
-    <!-- External Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
-    
-    <!-- External CSS -->
+    <title>Project Aphrodite</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- External JavaScript -->
-    <script src="script.js" defer></script>
 </head>
 <body>
 
-    <!-- Background Image -->
-    <div class="hero-background"></div>
+    <div id="dark-overlay"></div>
 
-    <!-- Intro Text Sequence -->
-    <div class="intro-container" id="introContainer">
-        <!-- Sequence 1 -->
-        <div class="sequence-text text-1">1,095 days.</div>
-        
-        <!-- Sequence 2 -->
-        <div class="sequence-text text-2">26,280 hours.</div>
-        
-        <!-- Sequence 3 -->
-        <div class="sequence-text text-3">But who's counting?</div>
-        
-        <!-- Final Reveal -->
-        <div class="final-text text-4">Happy 3rd Anniversary.</div>
-
-        <!-- Call to Action -->
-        <div class="scroll-indicator">Click anywhere to begin</div>
+    <div id="intro-container">
+        <h1 id="text1" class="intro-text">Hello Jean!</h1>
+        <h1 id="text2" class="intro-text">Welcome to my little project</h1>
+        <h1 id="text3" class="intro-text">This is our 3rd Year Anniversary!</h1>
+        <h1 id="text4" class="intro-text">and I just have one question...</h1>
     </div>
 
-    <!-- New Timeline/Years Section -->
-    <div class="timeline-container" id="timelineContainer">
-        <h2 class="timeline-title">Choose a Chapter</h2>
-        <div class="year-buttons">
-            <button class="year-btn">2024</button>
-            <button class="year-btn">2025</button>
-            <button class="year-btn">2026</button>
+    <div id="question-container" class="hidden">
+        <img src="./gif/dudu.gif" alt="Cute Bears" class="cute-gif">
+        
+        <h2 class="question">Do you love me?</h2>
+        
+        <div class="button-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
         </div>
+        
+        <p id="subtext">you don't have much of a choice :DD</p>
     </div>
 
+    <div id="scroll-wrapper" class="hidden">
+        
+        <div id="final-container">
+            <div id="bigHeart" class="heart"></div>
+            <h1>Brion X Jean</h1>
+            <h2>Happy Anniversary! ❤️</h2>
+        </div>
+
+        <div id="image-track">
+            </div>
+
+        <div id="tbc-container">
+            <h1 id="tbc-text" class="to-be-continued">I Love You, Lil Bech!</h1>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
