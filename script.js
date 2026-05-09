@@ -15,7 +15,7 @@ const scrollWrapper = document.getElementById('scroll-wrapper');
 const imageTrack = document.getElementById('image-track');
 const tbcText = document.getElementById('tbc-text');
 const darkOverlay = document.getElementById('dark-overlay');
-const bgMusic = document.getElementById('bg-music'); // <-- Music variable added here
+const bgMusic = document.getElementById('bg-music'); 
 
 let hoverCount = 0; const maxHovers = 20;
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -62,11 +62,9 @@ window.onload = runIntro;
 
 // --- RUNAWAY BUTTON LOGIC ---
 function showFinalScreen() {
-    // Start the music the moment she clicks "Yes"!
     bgMusic.play();
 
     questionContainer.classList.add('hidden');
-    // Unhide the scroll wrapper, which naturally displays the Heart Screen first
     scrollWrapper.classList.remove('hidden');
     scrollWrapper.classList.add('fade-in-scene');
 }
@@ -102,10 +100,8 @@ yesBtn.addEventListener('click', showFinalScreen);
 
 // --- FINALE: IMAGE GALLERY & FADE OUT LOGIC ---
 function triggerGallery() {
-    // Darken the background slightly
     darkOverlay.style.opacity = '1';
 
-    // Dynamically create and load all 14 images
     for (let i = 1; i <= 14; i++) {
         const img = document.createElement('img');
         img.src = `images/${i}.jpg`; 
@@ -114,23 +110,32 @@ function triggerGallery() {
         imageTrack.appendChild(img);
     }
 
-    // Start the scrolling animation 
     scrollWrapper.classList.add('scroll-active');
 
-    // Setup the watcher to detect when "I Love You..." hits the middle
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Fade out the images and the original heart container
                 document.getElementById('image-track').style.opacity = '0';
                 document.getElementById('final-container').style.opacity = '0';
 
-                // Wait 4 seconds, then fade EVERYTHING to black
+                // Fade everything to black
                 setTimeout(() => {
                     document.getElementById('scroll-wrapper').style.opacity = '0'; 
                     document.getElementById('heart-background').style.opacity = '0'; 
                     document.getElementById('dark-overlay').style.opacity = '0'; 
                     document.body.style.backgroundColor = '#000000';
+
+                    // NEW: Wait 3 seconds for the screen to turn fully black, then fade in the final text
+                    setTimeout(() => {
+                        const finalScreen = document.getElementById('absolute-final-screen');
+                        finalScreen.classList.remove('hidden');
+                        
+                        // A tiny delay ensures the browser registers the element before fading it in
+                        setTimeout(() => {
+                            finalScreen.style.opacity = '1';
+                        }, 50);
+                    }, 3000); 
+
                 }, 4000);
                 
                 observer.disconnect(); 
@@ -141,18 +146,15 @@ function triggerGallery() {
     observer.observe(tbcText);
 }
 
-// --- NEW: THE CLICK REACTION ---
+// --- CLICK REACTION FOR THE HEART ---
 function handleHeartClick(e) {
     if (e) e.preventDefault();
     
-    // 1. Prevent her from clicking it multiple times
     bigHeart.removeEventListener('click', handleHeartClick);
     bigHeart.removeEventListener('touchstart', handleHeartClick);
 
-    // 2. Make the big heart swell up and glow
     bigHeart.classList.add('heart-clicked');
 
-    // 3. Create the explosion of mini hearts
     const rect = bigHeart.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -161,9 +163,8 @@ function handleHeartClick(e) {
         const burst = document.createElement('div');
         burst.classList.add('burst-heart');
         
-        // Calculate a random direction and distance to shoot outward
         const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 80 + 60; // shoots between 60px and 140px outward
+        const distance = Math.random() * 80 + 60; 
         const tx = Math.cos(angle) * distance + 'px';
         const ty = Math.sin(angle) * distance + 'px';
         
@@ -175,16 +176,13 @@ function handleHeartClick(e) {
         
         document.body.appendChild(burst);
         
-        // Clean up the mini hearts from memory after they fade
         setTimeout(() => burst.remove(), 800);
     }
 
-    // 4. Wait just half a second for the burst animation, then start scrolling!
     setTimeout(() => {
         triggerGallery();
     }, 600);
 }
 
-// Attach the new reaction to the click/tap events
 bigHeart.addEventListener('click', handleHeartClick);
 bigHeart.addEventListener('touchstart', handleHeartClick, { passive: false });
