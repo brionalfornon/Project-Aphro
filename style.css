@@ -1,0 +1,176 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    background-color: #050505; /* Deep black background */
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden; /* Prevents scrolling */
+    color: #ffffff;
+    cursor: pointer; /* Suggests the whole screen is clickable */
+}
+
+/* The Background Image Container */
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./background/26364.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.15) blur(12px);
+    animation: backgroundReveal 4s ease-in-out forwards;
+    animation-delay: 13s;
+    z-index: 1;
+}
+
+/* Intro Container */
+.intro-container {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    transition: opacity 1.5s ease-in-out; /* Smooth fade out */
+}
+
+/* Hide class for Javascript transition */
+.intro-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Text Styling */
+.sequence-text {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    opacity: 0; 
+}
+
+.final-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-style: italic;
+    opacity: 0; 
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeInStay 2s ease-in-out forwards, float 2s infinite ease-in-out;
+    animation-delay: 16s;
+}
+
+/* --- NEW: TIMELINE CONTAINER & BUTTONS --- */
+
+.timeline-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none; /* Clicks pass through until active */
+    transition: opacity 1.5s ease-in-out;
+    transition-delay: 0.5s; /* Waits a moment after intro fades out */
+}
+
+.timeline-container.active {
+    opacity: 1;
+    pointer-events: auto; /* Buttons become clickable */
+}
+
+.timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 40px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.year-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.year-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    padding: 15px 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    backdrop-filter: blur(5px); /* Adds a slight blur behind the button */
+}
+
+.year-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #050505;
+    border-color: #ffffff;
+    transform: translateY(-3px);
+}
+
+/* --- ANIMATIONS --- */
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(15px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-15px); }
+}
+
+@keyframes fadeInStay {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes backgroundReveal {
+    0% { filter: brightness(0.15) blur(12px); }
+    100% { filter: brightness(0.6) blur(0px); } 
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* Timing classes */
+.text-1 { animation: fadeInOut 4s ease-in-out forwards; animation-delay: 1s; }
+.text-2 { animation: fadeInOut 4s ease-in-out forwards; animation-delay: 5s; }
+.text-3 { animation: fadeInOut 4s ease-in-out forwards; animation-delay: 9s; }
+.text-4 { animation: fadeInStay 3s ease-in-out forwards; animation-delay: 14s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sequence-text { font-size: 1.5rem; }
+    .final-text { font-size: 2.2rem; }
+    .year-buttons { flex-direction: column; gap: 15px; }
+    .year-btn { padding: 12px 60px; }
+}
