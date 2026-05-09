@@ -15,6 +15,7 @@ const scrollWrapper = document.getElementById('scroll-wrapper');
 const imageTrack = document.getElementById('image-track');
 const tbcText = document.getElementById('tbc-text');
 const darkOverlay = document.getElementById('dark-overlay');
+const bgMusic = document.getElementById('bg-music'); // <-- Music variable added here
 
 let hoverCount = 0; const maxHovers = 20;
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -61,6 +62,9 @@ window.onload = runIntro;
 
 // --- RUNAWAY BUTTON LOGIC ---
 function showFinalScreen() {
+    // Start the music the moment she clicks "Yes"!
+    bgMusic.play();
+
     questionContainer.classList.add('hidden');
     // Unhide the scroll wrapper, which naturally displays the Heart Screen first
     scrollWrapper.classList.remove('hidden');
@@ -113,7 +117,7 @@ function triggerGallery() {
     // Start the scrolling animation 
     scrollWrapper.classList.add('scroll-active');
 
-    // Setup the watcher to detect when "To Be Continued..." hits the middle
+    // Setup the watcher to detect when "I Love You..." hits the middle
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
